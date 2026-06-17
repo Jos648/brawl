@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HesabimNeQədər — Brawl Stars</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Arxa fon animasiyası -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <main class="container">
+
+    <!-- Başlıq -->
+    <header class="hero">
+      <div class="logo-wrap">
+        <span class="logo-icon">🥊</span>
+        <h1 class="logo-text">HesabımNeQədər?</h1>
+      </div>
+      <p class="tagline">Brawl Stars hesabının AZN dəyərini öyrən</p>
+    </header>
+
+    <!-- Axtarış formu -->
+    <section class="search-card">
+      <label class="input-label" for="tagInput">Oyunçu Teqi</label>
+      <div class="input-row">
+        <div class="input-prefix">#</div>
+        <input
+          id="tagInput"
+          type="text"
+          class="tag-input"
+          placeholder="XXXXXX"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          maxlength="12"
+        />
+        <button id="calcBtn" class="calc-btn" onclick="hesapla()">
+          <span class="btn-text">Hesabla</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+      <p class="input-hint">Məsələn: #2PQRLUVLQ — böyük hərflər ilə daxil et</p>
+    </section>
+
+    <!-- Yüklənmə göstəricisi -->
+    <div id="loadingState" class="loading-state hidden">
+      <div class="spinner"></div>
+      <span>Hesab yoxlanılır...</span>
+    </div>
+
+    <!-- Xəta mesajı -->
+    <div id="errorState" class="error-card hidden">
+      <span class="error-icon">⚠️</span>
+      <p id="errorMsg"></p>
+    </div>
+
+    <!-- Nəticə kartı -->
+    <section id="resultCard" class="result-card hidden">
+
+      <!-- Oyunçu profili -->
+      <div class="player-header">
+        <div class="player-avatar">🎮</div>
+        <div class="player-meta">
+          <h2 id="playerName" class="player-name"></h2>
+          <span id="playerTag" class="player-tag"></span>
+          <span id="playerClub" class="player-club hidden"></span>
+        </div>
+      </div>
+
+      <!-- AZN qiyməti - əsas nəticə -->
+      <div class="price-showcase">
+        <div class="price-label">Təxmini Hesab Dəyəri</div>
+        <div class="price-amount">
+          <span id="priceValue" class="price-number">0.00</span>
+          <span class="price-currency">AZN</span>
+        </div>
+      </div>
+
+      <!-- Statistika cərgəsi -->
+      <div class="stats-row">
+        <div class="stat-chip">
+          <span class="stat-icon">🏆</span>
+          <div>
+            <div id="statTrophies" class="stat-value">—</div>
+            <div class="stat-label">Kuboklar</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-icon">🥊</span>
+          <div>
+            <div id="statBrawlers" class="stat-value">—</div>
+            <div class="stat-label">Brawlerlər</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-icon">⚡</span>
+          <div>
+            <div id="statPower11" class="stat-value">—</div>
+            <div class="stat-label">Power 11</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-icon">🔥</span>
+          <div>
+            <div id="statHyper" class="stat-value">—</div>
+            <div class="stat-label">Hypercharge</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qiymət bölgüsü -->
+      <div class="breakdown-section">
+        <h3 class="breakdown-title">Qiymət Bölgüsü</h3>
+        <ul id="breakdownList" class="breakdown-list"></ul>
+      </div>
+
+      <!-- Xəbərdarlıq -->
+      <p class="disclaimer">
+        * Bu hesablama təxmini xarakter daşıyır. Real bazar qiymətlərindən fərqlənə bilər.
+      </p>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
