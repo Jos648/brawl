@@ -1,13 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+
+// index.html, style.css, script.js fayllarını göstər
+app.use(express.static(__dirname));
 
 // =====================================================
 // Brawl Stars Hesap Dəyər API
@@ -17,7 +18,9 @@ app.post("/api/hesapla", async (req, res) => {
   const { tag } = req.body;
 
   if (!tag) {
-    return res.status(400).json({ error: "Tag daxil edilməyib" });
+    return res.status(400).json({
+      error: "Tag daxil edilməyib",
+    });
   }
 
   const cleanTag = tag.startsWith("#") ? tag.slice(1) : tag;
@@ -36,16 +39,18 @@ app.post("/api/hesapla", async (req, res) => {
 
     const player = response.data;
 
-    // sadə hesab dəyəri
     let value = 0;
 
     value += player.trophies * 0.0005;
     value += player.brawlers.length * 0.3;
 
-    const power11 = player.brawlers.filter(b => b.power === 11).length;
+    const power11 = player.brawlers.filter(
+      (b) => b.power === 11
+    ).length;
+
     value += power11 * 0.5;
 
-    return res.json({
+    res.json({
       success: true,
       name: player.name,
       tag: player.tag,
@@ -53,6 +58,8 @@ app.post("/api/hesapla", async (req, res) => {
     });
 
   } catch (err) {
+    console.error(err.response?.data || err.message);
+
     if (err.response) {
       return res.status(err.response.status).json({
         error: err.response.data?.reason || "API xətası",
@@ -63,6 +70,11 @@ app.post("/api/hesapla", async (req, res) => {
       error: "Server xətası",
     });
   }
+});
+
+// Ana səhifə
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
 });
 
 // =====================================================
